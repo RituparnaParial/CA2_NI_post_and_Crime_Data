@@ -115,19 +115,19 @@ CleanNIPostcodeData <- read.csv("CleanNIPostcodeData.csv", stringsAsFactors = FA
 # for finding the Post code with reference to the previous dataset
 # therefore these are filtered into a new dataframe
 
-PostcodeThorfare_PostcodeThorfare_df<- tbl_df(CleanNIPostcodeData[, c(7, 14)])
-str(df)
-sum(is.na(df$Primary.Thorfare))
-sum(is.na(df$Postcode))
-PostcodeThorfare_df<- na.omit(df)
-PostcodeThorfare_df<- tbl_df(df)
+new_dataframe<- tbl_df(CleanNIPostcodeData[, c(7, 14)])
+str(new_dataframe)
+sum(is.na(new_dataframe$Primary.Thorfare))
+sum(is.na(new_dataframe$Postcode))
+new_dataframe<- na.omit(new_dataframe)
+new_dataframe<- tbl_df(new_dataframe)
 
 # Creating a function which takes input from each location 
 # and finds suitable postcode value from postcode dataset
 
 find_a_postcode <- lapply(random_crime_sample$Location, function(location) {
   
-  matched_location <- filter(df, Primary.Thorfare == location)
+  matched_location <- filter(new_dataframe, Primary.Thorfare == location)
   
   Postcode <- names(which.max(table(matched_location$Postcode)))
   
